@@ -53,28 +53,29 @@ Question generateQuestion() {
 
   @override
   Widget build(BuildContext context) {
-    // final currentQuestion = questionsLevel1[currentQuestionIndex]; // Mengambil soal berdasarkan index
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     final currentQuestion = generateQuestion();
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(140.0),
+        preferredSize: Size.fromHeight(screenHeight * 0.13),
         child: AppBar(
-          leadingWidth: 200,
-          toolbarHeight: 140,
+          leadingWidth: screenWidth * 0.10,
+          toolbarHeight: screenHeight * 0.13,
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.01),
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   text: 'Level 2',
                   style: TextStyle(
-                    fontSize: 64,
+                    fontSize: screenWidth * 0.03,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Super Shiny',
-                    color: Color.fromARGB(255, 230, 218, 162),
-                    shadows: [
+                    color: const Color.fromARGB(255, 230, 218, 162),
+                    shadows: const [
                       Shadow(
                         offset: Offset(1, 1),
                         color: Colors.black,
@@ -94,19 +95,19 @@ Question generateQuestion() {
           backgroundColor: const Color.fromARGB(255, 98, 78, 136).withOpacity(0.3),
           elevation: 20,
           leading: IconButton(
-            iconSize: 140,
+            iconSize: screenWidth * 0.07,
             icon: Image.asset(
               'assets/image/Back.png',
-              width: 70,
-              height: 50,
+              width: screenWidth * 0.03,
+              height: screenHeight * 0.04,
             ),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const LevelSelectScreen(),
-                            ),
-                          );
-                        },
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const LevelSelectScreen(),
+                ),
+              );
+            },
           ),
           actions: [
             Row(
@@ -115,13 +116,13 @@ Question generateQuestion() {
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Icon(
                     Icons.favorite,
-                    size: 40,
+                    size: screenWidth * 0.02,
                     color: index < lives ? Colors.red : Colors.grey, // Nyawa aktif/aktif
                   ),
                 );
               }),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: screenWidth * 0.005),
           ],
         ),
       ),
@@ -137,7 +138,7 @@ Question generateQuestion() {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.05),
 
             // Operasi Lingkaran Warna
             Expanded(
@@ -147,39 +148,39 @@ Question generateQuestion() {
                   Row(
   mainAxisAlignment: MainAxisAlignment.center,
   children: [
-    colorCircle(currentQuestion.color1, size: 150),
-    const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 40),
+    colorCircle(currentQuestion.color1, size: screenWidth * 0.15),
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
       child: Text(
         "+",
         style: TextStyle(
-          fontSize: 120,
+          fontSize: screenWidth * 0.12,
           fontFamily: 'Super Shiny',
           color: Colors.black,
         ),
       ),
     ),
-    colorCircle(currentQuestion.color2, size: 150),
+    colorCircle(currentQuestion.color2, size: screenWidth * 0.15),
     if (currentQuestion.color3 != null) ...[
-      const Padding(
-        padding: EdgeInsets.symmetric(horizontal: 40),
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
         child: Text(
           "+",
           style: TextStyle(
-            fontSize: 120,
+            fontSize: screenWidth * 0.12,
             fontFamily: 'Super Shiny',
             color: Colors.black,
           ),
         ),
       ),
-      colorCircle(currentQuestion.color3!, size: 150),
+      colorCircle(currentQuestion.color3!, size: screenWidth * 0.15),
     ],
-    const Padding(
-      padding: EdgeInsets.symmetric(horizontal: 40),
+    Padding(
+      padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.04),
       child: Text(
         "=",
         style: TextStyle(
-          fontSize: 120,
+          fontSize: screenWidth * 0.12,
           fontFamily: 'Super Shiny',
           color: Colors.black,
         ),
@@ -187,11 +188,11 @@ Question generateQuestion() {
     ),
     colorCircle(
       Colors.white,
-      size: 150,
-      child: const Text(
+      size: screenWidth * 0.15,
+      child: Text(
         "?",
         style: TextStyle(
-          fontSize: 120,
+          fontSize: screenWidth * 0.12,
           fontFamily: 'Super Shiny',
           color: Colors.black,
         ),
@@ -200,13 +201,13 @@ Question generateQuestion() {
   ],
 ),
 
-                  const SizedBox(height: 80),
+                  SizedBox(height: screenHeight * 0.08),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: currentQuestion.options
                         .map((color) => Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: hoverableColorCircle(color, currentQuestion.correctAnswer, context, size: 130),
+                              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
+                              child: hoverableColorCircle(color, currentQuestion.correctAnswer, context, size: screenWidth * 0.13),
                             ))
                         .toList(),
                   ),

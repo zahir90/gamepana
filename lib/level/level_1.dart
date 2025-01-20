@@ -17,52 +17,54 @@ class _Level1ScreenState extends State<Level1Screen> {
   int currentQuestionIndex = 0;
   int correctAnswers = 0;
 
-Question generateQuestion() {
-  final r = Random();
+  Question generateQuestion() {
+    final r = Random();
 
-  final color1 = Colors.primaries[r.nextInt(Colors.primaries.length)];
-  final color2 = Colors.primaries[r.nextInt(Colors.primaries.length)];
+    final color1 = Colors.primaries[r.nextInt(Colors.primaries.length)];
+    final color2 = Colors.primaries[r.nextInt(Colors.primaries.length)];
 
+    final optionColor1 = Colors.primaries[r.nextInt(Colors.primaries.length)];
+    final optionColor2 = Colors.primaries[r.nextInt(Colors.primaries.length)];
+    final correctColor =
+        Color.alphaBlend(color1.withOpacity(0.5), color2.withOpacity(0.5));
+    final options = <Color>[optionColor1, optionColor2, correctColor];
 
-  final optionColor1 = Colors.primaries[r.nextInt(Colors.primaries.length)];
-  final optionColor2 = Colors.primaries[r.nextInt(Colors.primaries.length)];
-  final correctColor = Color.alphaBlend(color1.withOpacity(0.5), color2.withOpacity(0.5));
-  final options = <Color>[optionColor1, optionColor2, correctColor];
+    options.shuffle(r);
 
-  options.shuffle(r);
-
-  return Question(
-    color1: color1,
-    color2: color2,
-    options: options,
-    correctAnswer: correctColor,
-  );
-}
+    return Question(
+      color1: color1,
+      color2: color2,
+      options: options,
+      correctAnswer: correctColor,
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     // final currentQuestion = questionsLevel1[currentQuestionIndex]; // Mengambil soal berdasarkan index
     final currentQuestion = generateQuestion();
 
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(140.0),
+        preferredSize: Size.fromHeight(screenHeight * 0.13),
         child: AppBar(
-          leadingWidth: 200,
-          toolbarHeight: 140,
+          leadingWidth: screenWidth * 0.10,
+          toolbarHeight: screenHeight * 0.13,
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.01),
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   text: 'Level 1',
                   style: TextStyle(
-                    fontSize: 64,
+                    fontSize: screenWidth * 0.03,
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Super Shiny',
-                    color: Color.fromARGB(255, 230, 218, 162),
-                    shadows: [
+                    color: const Color.fromARGB(255, 230, 218, 162),
+                    shadows: const [
                       Shadow(
                         offset: Offset(1, 1),
                         color: Colors.black,
@@ -79,22 +81,23 @@ Question generateQuestion() {
               ),
             ],
           ),
-          backgroundColor: const Color.fromARGB(255, 98, 78, 136).withOpacity(0.3),
+          backgroundColor:
+              const Color.fromARGB(255, 98, 78, 136).withOpacity(0.3),
           elevation: 20,
           leading: IconButton(
-            iconSize: 140,
+            iconSize: screenWidth * 0.07,
             icon: Image.asset(
               'assets/image/Back.png',
-              width: 70,
-              height: 50,
+              width: screenWidth * 0.03,
+              height: screenHeight * 0.04,
             ),
-                        onPressed: () {
-                          Navigator.of(context).pushReplacement(
-                            MaterialPageRoute(
-                              builder: (context) => const LevelSelectScreen(),
-                            ),
-                          );
-                        },
+            onPressed: () {
+              Navigator.of(context).pushReplacement(
+                MaterialPageRoute(
+                  builder: (context) => const LevelSelectScreen(),
+                ),
+              );
+            },
           ),
           actions: [
             Row(
@@ -103,13 +106,13 @@ Question generateQuestion() {
                   padding: const EdgeInsets.symmetric(horizontal: 5),
                   child: Icon(
                     Icons.favorite,
-                    size: 40,
+                    size: screenWidth * 0.02,
                     color: index < lives ? Colors.red : Colors.grey, // Nyawa aktif/aktif
                   ),
                 );
               }),
             ),
-            const SizedBox(width: 10),
+            SizedBox(width: screenWidth * 0.005),
           ],
         ),
       ),
@@ -125,7 +128,7 @@ Question generateQuestion() {
         ),
         child: Column(
           children: [
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.047),
 
             // Operasi Lingkaran Warna
             Expanded(
@@ -135,25 +138,25 @@ Question generateQuestion() {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      colorCircle(currentQuestion.color1, size: 150),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
+                      colorCircle(currentQuestion.color1, size: screenWidth * 0.07),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
                         child: Text(
                           "+",
                           style: TextStyle(
-                            fontSize: 120,
+                            fontSize: screenWidth * 0.06,
                             fontFamily: 'Super Shiny',
                             color: Colors.black,
                           ),
                         ),
                       ),
-                      colorCircle(currentQuestion.color2, size: 150),
-                      const Padding(
-                        padding: EdgeInsets.symmetric(horizontal: 40),
+                      colorCircle(currentQuestion.color2, size: screenWidth * 0.07),
+                      Padding(
+                        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.02),
                         child: Text(
                           "=",
                           style: TextStyle(
-                            fontSize: 120,
+                            fontSize: screenWidth * 0.06,
                             fontFamily: 'Super Shiny',
                             color: Colors.black,
                           ),
@@ -161,11 +164,11 @@ Question generateQuestion() {
                       ),
                       colorCircle(
                         Colors.white,
-                        size: 150,
-                        child: const Text(
+                        size: screenWidth * 0.07,
+                        child: Text(
                           "?",
                           style: TextStyle(
-                            fontSize: 120,
+                            fontSize: screenWidth * 0.06,
                             fontFamily: 'Super Shiny',
                             color: Colors.black,
                           ),
@@ -173,13 +176,13 @@ Question generateQuestion() {
                       ),
                     ],
                   ),
-                  const SizedBox(height: 80),
+                  SizedBox(height: screenHeight * 0.075),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: currentQuestion.options
                         .map((color) => Padding(
-                              padding: const EdgeInsets.symmetric(horizontal: 20),
-                              child: hoverableColorCircle(color, currentQuestion.correctAnswer, context, size: 130),
+                              padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.01),
+                              child: hoverableColorCircle(color, currentQuestion.correctAnswer, context, size: screenWidth * 0.067),
                             ))
                         .toList(),
                   ),
@@ -193,6 +196,7 @@ Question generateQuestion() {
   }
 
   Widget colorCircle(Color color, {Widget? child, VoidCallback? onTap, double size = 100}) {
+    final screenWidth = MediaQuery.of(context).size.width;
     return GestureDetector(
       onTap: onTap,
       child: Container(
@@ -201,7 +205,7 @@ Question generateQuestion() {
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color,
-          border: Border.all(color: Colors.black, width: 4),
+          border: Border.all(color: Colors.black, width: screenWidth * 0.002),
         ),
         child: Center(
           child: child ?? const SizedBox.shrink(),
@@ -210,181 +214,112 @@ Question generateQuestion() {
     );
   }
 
-Widget hoverableColorCircle(Color color, Color correctColor, BuildContext context, {double size = 100}) {
-  return GestureDetector(
-    onTap: () {
-      showDialog(
-        context: context,
-        builder: (context) => Dialog(
-          backgroundColor: Colors.transparent, // Latar belakang dialog transparan
-          child: Container(
-            decoration: BoxDecoration(
-              color: Colors.transparent, // Latar belakang semi transparan
-              borderRadius: BorderRadius.circular(20),
-            ),
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Image.asset(
-                  'assets/image/yakin.png', // Ganti dengan path gambar yang sesuai
-                width: 400,
-                height: 400,
-                ),
-                const SizedBox(height: 20),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Tutup pop-up
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE6D9A2), // Warna tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+  Widget hoverableColorCircle(Color color, Color correctColor, BuildContext context, {double size = 100}) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+    return GestureDetector(
+      onTap: () {
+        showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Colors.transparent,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: EdgeInsets.all(screenWidth * 0.0104),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/image/yakin.png',
+                    width: screenWidth * 0.208,
+                    height: screenHeight * 0.37,
+                  ),
+                  SizedBox(height: screenHeight * 0.018),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE6D9A2),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.052, vertical: screenHeight * 0.028),
                         ),
-                        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
+                        child: Text("Tidak", style: TextStyle(fontSize: screenWidth * 0.015, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny')),
                       ),
-                      child: const Text("Tidak", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny',)),
-                    ),
-                    ElevatedButton(
-                      onPressed: () {
-                        Navigator.of(context).pop(); // Tutup pop-up
-                        checkAnswer(context, color, correctColor); // Konfirmasi jawaban
-                      },
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color(0xFFE6D9A2), // Warna tombol
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(20),
+                      ElevatedButton(
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                          checkAnswer(context, color, correctColor);
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: const Color(0xFFE6D9A2),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.052, vertical: screenHeight * 0.028),
                         ),
-                       padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
+                        child: Text("Ya", style: TextStyle(fontSize: screenWidth * 0.015, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny')),
                       ),
-                      child: const Text("Ya", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny',)),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-        ),
-      );
-    },
+        );
+      },
       child: Container(
         width: size,
         height: size,
         decoration: BoxDecoration(
           shape: BoxShape.circle,
           color: color,
-          border: Border.all(color: Colors.black, width: 4),
+          border: Border.all(color: Colors.black, width: screenWidth * 0.002),
         ),
       ),
     );
   }
 
-
-void checkAnswer(BuildContext context, Color selectedColor, Color correctAnswer) {
-    // final currentQuestion = questionsLevel1[currentQuestionIndex]; // Ambil soal saat ini
+  void checkAnswer(BuildContext context, Color selectedColor, Color correctAnswer) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     if (selectedColor == correctAnswer) {
-      // Jawaban benar
-      correctAnswers++; // Tambah jawaban benar
-      showDialog(
-      context: context,
-      builder: (context) => Dialog(
-        backgroundColor: Colors.transparent, // Transparan
-        child: Container(
-          decoration: BoxDecoration(
-            color: Colors.transparent, // Latar belakang transparan
-            borderRadius: BorderRadius.circular(20),
-          ),
-          padding: const EdgeInsets.all(20),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                'assets/image/benar.png', // Gambar untuk jawaban benar
-                width: 200,
-                height: 200,
-              ),
-              const SizedBox(height: 20),
-              const Text(
-                "Jawaban Anda benar.",
-                style: TextStyle(fontSize: 30,
-                fontWeight: FontWeight.bold,
-                fontFamily: 'Super Shiny',
-                color: Color(0xFFE6D9A2),
-                shadows: [
-                      Shadow(
-                        offset: Offset(1, 1),
-                        color: Colors.black,
-                        blurRadius: 2,
-                      ),
-                      Shadow(
-                        offset: Offset(-1, -1),
-                        color: Colors.black,
-                        blurRadius: 2,
-                      ),
-                    ],
-                ),
-                textAlign: TextAlign.center,
-              ),
-              const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                  setState(() {
-                    if (currentQuestionIndex < questionsLevel1.length - 1) {
-                      currentQuestionIndex++; // Lanjut ke soal berikutnya
-                    }
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: const Color(0xFFE6D9A2),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
-                ),
-                child: const Text("Lanjut", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny'),),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-    } else {
-    setState(() {
-      lives--;
-    });
-
-
-      if (lives > 0) {
+      correctAnswers++;
       showDialog(
         context: context,
         builder: (context) => Dialog(
-          backgroundColor: Colors.transparent, // Transparan
+          backgroundColor: Colors.transparent,
           child: Container(
             decoration: BoxDecoration(
-              color: Colors.transparent, // Latar belakang transparan
+              color: Colors.transparent,
               borderRadius: BorderRadius.circular(20),
             ),
-            padding: const EdgeInsets.all(20),
+            padding: EdgeInsets.all(screenWidth * 0.0104),
             child: Column(
               mainAxisSize: MainAxisSize.min,
               children: [
                 Image.asset(
-                  'assets/image/salah.png', // Gambar untuk jawaban salah
-                  width: 200,
-                  height: 200,
+                  'assets/image/benar.png',
+                  width: screenWidth * 0.0104,
+                  height: screenHeight * 0.189,
                 ),
-                const SizedBox(height: 20),
-                const Text(
-                  "Sayang sekali, jawaban Anda salah.",
-                  style: TextStyle(fontSize: 70, 
-                  fontWeight: FontWeight.bold,
-                  color: Color(0xFFE6D9A2),
-                  fontFamily: 'Super Shiny',
-                  shadows: [
+                SizedBox(height: screenHeight * 0.189),
+                Text(
+                  "Jawaban Anda benar.",
+                  style: TextStyle(
+                    fontSize: screenWidth * 0.015,
+                    fontWeight: FontWeight.bold,
+                    fontFamily: 'Super Shiny',
+                    color: const Color(0xFFE6D9A2),
+                    shadows: const [
                       Shadow(
                         offset: Offset(1, 1),
                         color: Colors.black,
@@ -399,34 +334,104 @@ void checkAnswer(BuildContext context, Color selectedColor, Color correctAnswer)
                   ),
                   textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 20),
+                SizedBox(height: screenHeight * 0.189),
                 ElevatedButton(
                   onPressed: () {
                     Navigator.of(context).pop();
+                    setState(() {
+                      if (currentQuestionIndex < questionsLevel1.length - 1) {
+                        currentQuestionIndex++;
+                      }
+                    });
                   },
                   style: ElevatedButton.styleFrom(
                     backgroundColor: const Color(0xFFE6D9A2),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(10),
                     ),
-                  padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
+                    padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
                   ),
-                  child: const Text("Coba Lagi", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny',)),
+                  child: const Text("Lanjut", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny')),
                 ),
               ],
             ),
           ),
         ),
       );
-      } else {
-        // Nyawa habis, tampilkan dialog hasil akhir
+    } else {
+      setState(() {
+        lives--;
+      });
+
+      if (lives > 0) {
         showDialog(
           context: context,
           builder: (context) => Dialog(
             backgroundColor: Colors.transparent,
             child: Container(
               decoration: BoxDecoration(
-                color: Colors.transparent, // Latar belakang transparan
+                color: Colors.transparent,
+                borderRadius: BorderRadius.circular(20),
+              ),
+              padding: const EdgeInsets.all(20),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Image.asset(
+                    'assets/image/salah.png',
+                    width: 200,
+                    height: 200,
+                  ),
+                  const SizedBox(height: 20),
+                  const Text(
+                    "Sayang sekali, jawaban Anda salah.",
+                    style: TextStyle(
+                      fontSize: 70,
+                      fontWeight: FontWeight.bold,
+                      color: Color(0xFFE6D9A2),
+                      fontFamily: 'Super Shiny',
+                      shadows: [
+                        Shadow(
+                          offset: Offset(1, 1),
+                          color: Colors.black,
+                          blurRadius: 2,
+                        ),
+                        Shadow(
+                          offset: Offset(-1, -1),
+                          color: Colors.black,
+                          blurRadius: 2,
+                        ),
+                      ],
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 20),
+                  ElevatedButton(
+                    onPressed: () {
+                      Navigator.of(context).pop();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: const Color(0xFFE6D9A2),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
+                    ),
+                    child: const Text("Coba Lagi", style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold, fontFamily: 'Super Shiny')),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      } else {
+        showDialog(
+          context: context,
+          builder: (context) => Dialog(
+            backgroundColor: Colors.transparent,
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.transparent,
                 borderRadius: BorderRadius.circular(20),
               ),
               padding: const EdgeInsets.all(20),
@@ -452,9 +457,7 @@ void checkAnswer(BuildContext context, Color selectedColor, Color correctAnswer)
                     textAlign: TextAlign.center,
                   ),
                   const SizedBox(height: 20),
-                  // Tampilkan hasil akhir
                   Text(
-                    // ignore: unnecessary_brace_in_string_interps
                     "Soal Terjawab Benar: $correctAnswers\n",
                     style: const TextStyle(
                       fontSize: 40,
@@ -479,7 +482,6 @@ void checkAnswer(BuildContext context, Color selectedColor, Color correctAnswer)
                         onPressed: () {
                           Navigator.of(context).pop();
                           setState(() {
-                            // Reset semua variabel untuk memulai ulang
                             lives = 3;
                             currentQuestionIndex = 0;
                             correctAnswers = 0;

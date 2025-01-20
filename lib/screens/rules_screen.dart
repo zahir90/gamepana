@@ -5,25 +5,27 @@ class RulesScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
   appBar: PreferredSize(
   preferredSize: const Size.fromHeight(140.0), // Tinggi AppBar
   child: AppBar(
-    leadingWidth: 200,
-    toolbarHeight: 140,
+    leadingWidth: screenWidth * 0.10,
+    toolbarHeight: screenHeight * 0.13,
     flexibleSpace: Column(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
-        const SizedBox(height: 20), // Jarak dengan atas
+        SizedBox(height: screenHeight * 0.01), // Jarak dengan atas
         RichText(
-          text: const TextSpan(
+          text: TextSpan(
             text: 'Aturan Permainan',
             style: TextStyle(
-              fontSize: 64,
+              fontSize: screenWidth * 0.03,
               fontWeight: FontWeight.bold,
               fontFamily: 'Super Shiny',
-              color: Color.fromARGB(255, 230, 218, 162),
-              shadows: [
+              color: const Color.fromARGB(255, 230, 218, 162),
+              shadows: const [
                 Shadow(
                   offset: Offset(1, 1),
                   color: Colors.black,
@@ -43,7 +45,7 @@ class RulesScreen extends StatelessWidget {
     backgroundColor: const Color.fromARGB(255, 98, 78, 136).withOpacity(0.3),
     elevation: 20,
         leading: IconButton(
-      iconSize: 140, // Ukuran ikon
+      iconSize: screenWidth * 0.07,
       icon: 
       // ImageIcon(
       //   AssetImage('image/Back.svg'),
@@ -53,8 +55,8 @@ class RulesScreen extends StatelessWidget {
         fit: BoxFit.cover,
         scale: 5,
         'assets/image/Back.png', // Ganti dengan path gambar yang Anda inginkan
-        width: 70, // Ukuran gambar
-        height: 50, // Ukuran gambar
+        width: screenWidth * 0.03,
+        height: screenHeight * 0.04,
       ),
       onPressed: () {
         Navigator.pop(context);
@@ -80,69 +82,69 @@ class RulesScreen extends StatelessWidget {
 
         child: Center(
           child: ConstrainedBox(
-            constraints: const BoxConstraints(maxWidth: 1000),
+            constraints: BoxConstraints(maxWidth: screenWidth * 0.52),
             child: Container(
-              padding: const EdgeInsets.all(20.0),
+              padding: EdgeInsets.all(screenWidth * 0.01),
               decoration: BoxDecoration(
                 color: const Color.fromARGB(70, 137, 103, 179),
                 borderRadius: BorderRadius.circular(12),
               ),
               child: Container(
-                padding: const EdgeInsets.only(top: 80, bottom: 80, left: 40, right: 40),
+                padding: EdgeInsets.only(top: screenHeight * 0.07, bottom: screenHeight * 0.07, left: screenWidth * 0.02, right: screenWidth * 0.02),
                 decoration: BoxDecoration(
                   color: const Color(0xFF8967B3),
                   borderRadius: BorderRadius.circular(12),
                 ),
-                child: const Column(
+                child: Column(
                   mainAxisSize: MainAxisSize.min,
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       '• Dalam permainan ini ada 3 level, setiap level akan ada soal yang diberikan.',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: screenWidth * 0.02,
                         fontFamily: 'Super Shiny',
-                        color: Color.fromARGB(255, 230, 218, 162),
-                        shadows: [
+                        color: const Color.fromARGB(255, 230, 218, 162),
+                        shadows: const [
                           Shadow(offset: Offset(1, 1), color: Colors.black, blurRadius: 2),
                           Shadow(offset: Offset(-1, -1), color: Colors.black, blurRadius: 2),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: screenHeight * 0.009),
                     Text(
                       '• Permainan ini akan dibekali 3 nyawa, dan setiap salah menebak akan berkurang satu.',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: screenWidth * 0.02,
                         fontFamily: 'Super Shiny',
-                        color: Color.fromARGB(255, 230, 218, 162),
-                        shadows: [
+                        color: const Color.fromARGB(255, 230, 218, 162),
+                        shadows: const [
                           Shadow(offset: Offset(1, 1), color: Colors.black, blurRadius: 2),
                           Shadow(offset: Offset(-1, -1), color: Colors.black, blurRadius: 2),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: screenHeight * 0.009),
                     Text(
                       '• Soal di setiap akhir level adalah raja warna. Kalahkan raja warna untuk bisa ke level selanjutnya.',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: screenWidth * 0.02,
                         fontFamily: 'Super Shiny',
-                        color: Color.fromARGB(255, 230, 218, 162),
-                        shadows: [
+                        color: const Color.fromARGB(255, 230, 218, 162),
+                        shadows: const [
                           Shadow(offset: Offset(1, 1), color: Colors.black, blurRadius: 2),
                           Shadow(offset: Offset(-1, -1), color: Colors.black, blurRadius: 2),
                         ],
                       ),
                     ),
-                    SizedBox(height: 10),
+                    SizedBox(height: screenHeight * 0.009),
                     Text(
                       '• Selamat belajar sambil bermain!!!!',
                       style: TextStyle(
-                        fontSize: 40,
+                        fontSize: screenWidth * 0.02,
                         fontFamily: 'Super Shiny',
-                        color: Color.fromARGB(255, 230, 218, 162),
-                        shadows: [
+                        color: const Color.fromARGB(255, 230, 218, 162),
+                        shadows: const [
                           Shadow(offset: Offset(1, 1), color: Colors.black, blurRadius: 2),
                           Shadow(offset: Offset(-1, -1), color: Colors.black, blurRadius: 2),
                         ],

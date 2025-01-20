@@ -28,6 +28,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       body: Container(
         decoration: const BoxDecoration(
@@ -74,8 +76,8 @@ class _HomeScreenState extends State<HomeScreen> {
                     isMusicPlaying
                         ? 'assets/image/Speaker.png' // Ikon saat musik menyala
                         : 'assets/image/Speaker-off.png', // Ikon saat musik mati
-                    width: 70,
-                    height: 70,
+                    width: screenWidth * 0.03,
+                    height: screenHeight * 0.06,
                   ),
                   onPressed: () {
                     setState(() {
@@ -100,11 +102,13 @@ class _HomeScreenState extends State<HomeScreen> {
                   Column(
                     children: [
                       _buildGradientText('PADU'),
-                      const SizedBox(height: 20),
+
+                       SizedBox(height: screenHeight * 0.01),
+
                       _buildGradientText('WARNA'),
                     ],
                   ),
-                  const SizedBox(height: 40),
+                   SizedBox(height: screenHeight * 0.03),
 
                   // Tombol MAINKAN
                   _buildButton(
@@ -119,7 +123,7 @@ class _HomeScreenState extends State<HomeScreen> {
                       );
                     },
                   ),
-                  const SizedBox(height: 20),
+                   SizedBox(height: screenHeight * 0.01),
 
                   // Tombol ATURAN PERMAINAN
                   _buildButton(
@@ -144,19 +148,21 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildGradientText(String text) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Stack(
       children: [
         Text(
           text,
           style: TextStyle(
-            fontSize: 150,
+            fontSize: screenWidth * 0.07,
             fontWeight: FontWeight.bold,
             fontFamily: 'Super Shiny',
             foreground: Paint()
               ..style = PaintingStyle.stroke
-              ..strokeWidth = 8
+              ..strokeWidth = screenWidth * 0.004
               ..color = const Color(0xFFE6D9A2),
-            height: 0.8,
+            height: screenHeight * 0.0007,
           ),
         ),
         ShaderMask(
@@ -167,12 +173,12 @@ class _HomeScreenState extends State<HomeScreen> {
           ).createShader(bounds),
           child: Text(
             text,
-            style: const TextStyle(
-              fontSize: 150,
+            style: TextStyle(
+              fontSize: screenWidth * 0.07,
               fontWeight: FontWeight.bold,
               fontFamily: 'Super Shiny',
-              color: Colors.white,
-              height: 0.8,
+              color: const Color(0xFF624E88),
+              height: screenHeight * 0.0007,
             ),
           ),
         ),
@@ -181,23 +187,25 @@ class _HomeScreenState extends State<HomeScreen> {
   }
 
   Widget _buildButton(BuildContext context, {required String label, required VoidCallback onPressed}) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
         backgroundColor: const Color(0xFFE6D9A2),
-        minimumSize: const Size(560, 90),
+        minimumSize: Size(screenWidth * 0.2, screenHeight * 0.08),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(60),
         ),
       ),
       child: Text(
         label,
-        style: const TextStyle(
-          fontSize: 64,
+        style: TextStyle(
+          fontSize: screenWidth * 0.03,
           fontWeight: FontWeight.bold,
           fontFamily: 'Super Shiny',
-          color: Color(0xFF624E88),
-          height: 0.6,
+          color: const Color(0xFF624E88),
+          height: screenHeight * 0.0005,
         ),
       ),
     );

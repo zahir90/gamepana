@@ -1,3 +1,5 @@
+// ignore_for_file: deprecated_member_use
+
 import 'package:flutter/material.dart';
 import 'package:pana/screens/home_screen.dart';
 import 'package:pana/level/level_1.dart';
@@ -10,25 +12,27 @@ class LevelSelectScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
     return Scaffold(
       appBar: PreferredSize(
-        preferredSize: const Size.fromHeight(140.0),
+        preferredSize: Size.fromHeight(screenHeight * 0.13),
         child: AppBar(
-          leadingWidth: 200,
-          toolbarHeight: 140,
+          leadingWidth: screenWidth * 0.10,
+          toolbarHeight: screenHeight * 0.13,
           flexibleSpace: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(height: 20),
+              SizedBox(height: screenHeight * 0.01),
               RichText(
-                text: const TextSpan(
+                text: TextSpan(
                   text: 'Pilih Level',
                   style: TextStyle(
-                    fontSize: 64,
+                    fontSize: screenWidth * 0.03, 
                     fontWeight: FontWeight.bold,
                     fontFamily: 'Super Shiny',
-                    color: Color.fromARGB(255, 230, 218, 162),
-                    shadows: [
+                    color: const Color.fromARGB(255, 230, 218, 162),
+                    shadows: const [
                       Shadow(
                         offset: Offset(1, 1),
                         color: Colors.black,
@@ -49,11 +53,11 @@ class LevelSelectScreen extends StatelessWidget {
               const Color.fromARGB(255, 98, 78, 136).withOpacity(0.3),
           elevation: 20,
           leading: IconButton(
-            iconSize: 140,
+            iconSize: screenWidth * 0.07,
             icon: Image.asset(
               'assets/image/Back.png',
-              width: 70,
-              height: 50,
+              width: screenWidth * 0.03,
+              height: screenHeight * 0.04,
             ),
                         onPressed: () {
                           Navigator.of(context).push(
@@ -78,7 +82,7 @@ class LevelSelectScreen extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.04),
 
             // Tombol Level 1
             levelWithImages(
@@ -90,7 +94,7 @@ class LevelSelectScreen extends StatelessWidget {
               true,
             ),
 
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.04),
 
             // Tombol Level 2
             levelWithImages(
@@ -102,7 +106,7 @@ class LevelSelectScreen extends StatelessWidget {
               true,
             ),
 
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.04),
 
             // Tombol Level 3
             levelWithImages(
@@ -127,13 +131,15 @@ Widget levelWithImages(
     String rightImage,
     Widget? targetScreen,
     bool isUnlocked) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
   return Stack(
     alignment: Alignment.center,
     children: [
       // Latar belakang tombol
       Container(
-        margin: const EdgeInsets.symmetric(horizontal: 100),
-        padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 30),
+        margin: EdgeInsets.symmetric(horizontal: screenWidth * 0.05),
+        padding: EdgeInsets.symmetric(horizontal: screenWidth * 0.05, vertical: screenHeight * 0.02),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(100),
         ),
@@ -151,7 +157,7 @@ Widget levelWithImages(
               : null, // Jika level terkunci, tombol dinonaktifkan
           style: ElevatedButton.styleFrom(
             backgroundColor: const Color(0xFFE6D9A2),
-            minimumSize: const Size(560, 150),
+            minimumSize: Size(screenWidth * 0.2, screenHeight * 0.14),
             shadowColor: Colors.transparent,
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(80),
@@ -160,7 +166,7 @@ Widget levelWithImages(
           child: Text(
             isUnlocked ? levelText : "Terkunci",
             style: TextStyle(
-              fontSize: 64,
+              fontSize: screenWidth * 0.03,
               fontWeight: FontWeight.bold,
               fontFamily: 'Super Shiny',
               color: isUnlocked
@@ -173,24 +179,24 @@ Widget levelWithImages(
 
       // Gambar di kiri
       Positioned(
-        left: 100,
-        top: -10,
+        left: screenWidth * 0.05,
+        top: screenHeight * -0.009,
         child: Image.asset(
           leftImage,
-          width: 180,
-          height: 180,
+          width: screenWidth * 0.09,
+          height: screenHeight * 0.17,
           fit: BoxFit.cover,
         ),
       ),
 
       // Gambar di kanan
       Positioned(
-        right: 100,
-        top: -10,
+        right: screenWidth * 0.05,
+        top: screenHeight * -0.009,
         child: Image.asset(
           rightImage,
-          width: 180,
-          height: 180,
+          width: screenWidth * 0.09,
+          height: screenHeight * 0.17,
           fit: BoxFit.cover,
         ),
       ),
